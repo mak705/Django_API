@@ -1,0 +1,69 @@
+{% extends 'homesapp/base.html'%}
+{% block body %}
+
+<html
+<head></head>
+<body>
+      <div class="col-md-1">
+      </div>
+      <div class="col-md-8">
+        <h1>Properties in {{location.location_name}}</h1>
+        <div class="panel-group">
+          {% for place in location.property_set.all %}
+
+          <div class="panel panel-primary">
+            <div class="panel-heading">{{place.property_name}}</div>
+              <div class="panel-body">
+                <div class="col-md-4">
+                  <img src="{{place.image_url}}" height="200" width="200">
+                </div>
+                <div class="col-md-6">
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <td><label>Area in sqft</td>
+                        <td>{{place.area}}</td>
+                      </tr>
+                      <tr>
+                        <td><label>Price</td>
+                        <td>{{place.price}}</td>
+                      </tr>
+                      <tr>
+                        <td><label>Floors</td>
+                        <td>{{place.floor}}</td>
+                      </tr>
+                      <tr>
+                        <td><label>Address</td>
+                        <td>{{place.postadd}}</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td><a class='btn btn-success' href='/homesapp/{{location.id}}/{{place.id}}'>View Details</a></td>
+
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+
+            </div>
+            {% endfor %}
+
+
+          </div>
+
+        </div>
+
+
+
+      </div>
+</body>
+</html>
+
+{#{% for place in location.property_set.all %}#}
+    {#{{ place.property_name }}#}
+  {#To make orchidvilla cliickable#}
+  {#<a href ='/homesapp/{{location.id}}/{{place.id}}'>{{ place.property_name }}</a></br>#}
+  {#{% endfor %}#}
+{% endblock %}

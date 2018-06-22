@@ -1,0 +1,33 @@
+1. Create a folder called demo
+Create virtual env
+mak@mak-Aspire-A515-51G:~/demo$ virtualenv env
+Using base prefix '/usr'
+New python executable in /home/mak/demo/env/bin/python3
+Also creating executable in /home/mak/demo/env/bin/python
+Installing setuptools, pip, wheel...done.
+
+2.mak@mak-Aspire-A515-51G:~/demo/env$ source bin/activate
+install 2 things django and rest
+
+(env) mak@mak-Aspire-A515-51G:~/demo$ pip install django==1.11.4
+(env) mak@mak-Aspire-A515-51G:~/demo$ pip install djangorestframework==3.6.3
+
+(env) mak@mak-Aspire-A515-51G:~/demo$ django-admin startproject rest
+(env) mak@mak-Aspire-A515-51G:~/demo$  cd rest
+(env) mak@mak-Aspire-A515-51G:~/demo/rest$ django-admin startapp restapp
+
+We need to show the content from the api fetched from db
+SO will create our own db structure
+
+open model.py enter the following
+from django.db import models
+
+# Create your models here.
+class Task(models.Model):
+    task_name = models.CharField(max_length = 200)
+    task_desc = models.CharField(max_length = 200)
+    date_created = models.DateTimeField(auto_now = True)
+
+5. Add a file inside called serializers.py
+rest/restapp/serializers.py.  We need to proovide the interface, which of the follwoing aceesible by
+api. we need to mention this inthis file

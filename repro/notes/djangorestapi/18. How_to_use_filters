@@ -1,0 +1,38 @@
+using django filters
+ex : completed_task and due_task is in  seperate Class
+now let us merge that using django filters
+
+(env) mak@mak-Aspire-A515-51G:~/demo/rest$ pip install django-filter
+import filters in views.py
+from rest_framework import filters
+
+comment out completed_task and due_task class in views.py
+#class DueTaskViewSet(viewsets.ModelViewSet):
+#    queryset = Task.objects.order_by('-date_created').filter(completed = False)
+#    serializer_class = TaskSerializers
+
+#class CompletedViewSet(viewsets.ModelViewSet):
+#    #queryset = Task.objects.all().order_by('-date_created')
+#    queryset = Task.objects.all().order_by('-date_created').filter(completed = True)
+#    serializer_class = TaskSerializers
+
+
+class TaskViewSet(viewsets.ModelViewSet):
+    #queryset = Task.objects.all().order_by('-date_created')
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializers
+
+    filter_backends = filters.DjangoFilterBackend, filters.OrderingFilter)
+    filter_fields = ('completed',)
+    ordering = ('-date_created',)
+
+  URLs.py
+  comment SimpleRouter and register used for the completed_task and due_task
+  #router = routers.SimpleRouter()
+  #router.register(r'due_task', views.DueTaskViewSet)
+  #router.register(r'completed_task', views.CompletedViewSet)
+add >>  router.register(r'task', views.TaskViewSet)
+
+Go to seetings and add django filters
+http://127.0.0.1:8000/task/?completed=True
+http://127.0.0.1:8000/task/?completed=False

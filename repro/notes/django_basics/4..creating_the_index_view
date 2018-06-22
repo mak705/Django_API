@@ -1,0 +1,53 @@
+Create the index view so that all location would be availble
+Let us check for one locaton miami
+
+Create views for miami
+/home/mak/repro/homefinder/homesapp/views.py
+from django.views import generic
+
+class IndexView(generic.ListView):
+	"""Create Template and extract all the possible location"""
+	template_name = "homesapp/index.html"
+
+	def get_queryset(self):
+		return  Location.objects.all()
+
+
+create a folder inside homesapp folder called templates
+inside that homesapp folder and index.html(extract all the possible location)
+
+/home/mak/repro/homefinder/homesapp >> templates >> homesapp >> index.html
+
+display the location in the index.html file
+{# object_list have all the information about the location #}
+{% for location in object_list %}
+<a href ='#'>{{location.location_name}}</a>
+{% endfor %}
+
+
+Configure urls.py in for location
+/home/mak/repro/homefinder/homefinder/urls.py
+#import include from django >> from django.conf.urls import include,url
+ url(r'^homesapp/', include('homesapp.urls')),
+
+
+ Create a new file in homesapp folder called urls.py
+/home/mak/repro/homefinder/urls.py
+
+from django.conf.urls import url, include
+from django.contrib import admin
+from  .import views
+urlpatterns = [
+    url(r'^$', views.IndexView.as_view(),name='index'),
+]
+
+hit the browser http://127.0.0.1:8000/homesapp/
+error shows location not defined >> goto views.py add from .models import Location
+
+now hit the browser you can see miami
+
+add one more location through admin http://127.0.0.1:8000/admin/homesapp/location/
+say NewYork
+
+hit the browser http://127.0.0.1:8000/homesapp/
+Miami and New York in one line to seperate go to index.html(/home/mak/repro/homefinder/homesapp/templates/homesapp) and add br tag

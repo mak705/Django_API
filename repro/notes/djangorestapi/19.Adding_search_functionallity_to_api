@@ -1,0 +1,5 @@
+views.py
+filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter, filters.searchFilter)
+search_fields = ('task_name',)
+
+http://127.0.0.1:8000/task/?search=cricket

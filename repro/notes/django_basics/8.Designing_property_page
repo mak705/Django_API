@@ -1,0 +1,34 @@
+1.  Add more property
+add more attibuite in models.py of property
+let us add no of floors, postal address ....
+class Property(models.Model):
+#taking property from the Location so foreignkey is used
+	location = models.ForeignKey(Location, on_delete = models.CASCADE)
+	property_name = models.CharField(max_length = 200)
+	area = models.CharField(max_length = 200)
+	age = models.CharField(max_length = 200)
+	price = models.CharField(max_length = 200)
+	direction = models.CharField(max_length = 200)
+	floor = models.CharField(max_length = 200)
+	postadd = models.CharField(max_length = 200)
+	image_url = models.CharField(max_length = 500)
+
+2. Once change in the model apply migrations
+(repro) mak@mak-Aspire-A515-51G:~/repro/homefinder$ python manage.py makemigrations homesapp
+ since value are not defined we need to press 1 enter, 'NA' for six times. Otherwise we can add
+ the values in models.py
+
+sql igrate
+ 3.(repro) mak@mak-Aspire-A515-51G:~/repro/homefinder$ python manage.py makemigrations homesapp
+
+4.migrate
+(repro) mak@mak-Aspire-A515-51G:~/repro/homefinder$ python manage.py migrate
+
+now run server
+http://127.0.0.1:8000/admin/homesapp/property/add/
+you can see all the 6 new attribuites we defined in models.py
+
+5. Change the property of fun house >> go to admin panel and change
+http://127.0.0.1:8000/admin/homesapp/property/2/change/
+add some dummy data, give some random image url
+http://www.lovethispic.com/image/22083/large-mansion-exterior

@@ -1,0 +1,49 @@
+authentication in views.py
+from rest_framework.permissions import isAuthenticated
+permission_classes = (isAuthenticated, )
+
+
+serializers.py
+from django.contrib.auth import get_user_model
+
+class UserSerializer(serializers.ModelSerializer):
+  password = serializers.CharField(write_only= True)
+  def create(self, validate_data):
+    user = get_user_model().objects.create(username= validate_data['username'])
+    user.set_password(validate_data['password'])
+    user.save()
+    return user
+
+  class Meta:
+    model = get_user_model()
+    fields = ('username', 'password')
+
+
+views.py add registration details
+from .serializers import TaskSerializers,UserSerializer
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.generics import CreateAPIView
+from django.contrib.auth import get_user_model
+
+permission_classes = (IsAuthenticated, )
+
+
+class Createuserview(CreateAPIView):
+    model = get_user_model()
+    permission_classes = (AllowAny, )
+    serializer_class = UserSerializer
+
+urls.py
+url(r'^register/$', views.Createuserview.as_view(), name='user'),
+url(r'^api-auth/', include('rest_framework.urls',namespace='rest_framework')),
+
+
+Once logged in we need to redirect the urls
+setting.py
+LOGIN_REDIRECT_URL='/task'
+
+http://127.0.0.1:8000/task/
+    "detail": "Authentication credentials were not provided."
+  http://127.0.0.1:8000/register/
+  mak, mak
+  http://127.0.0.1:8000/task/

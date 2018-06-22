@@ -1,0 +1,30 @@
+Create a property called fun house in Newyork location from the UI
+1. On click on orchid villa or Fun house we need to get the property view
+Create a class inside views.py(/home/mak/repro/homefinder/homesapp)
+class PropertyDetail(generic.DetailView):
+    model = Property
+    template_name = 'homesapp/propertyview.html'
+2. Create locationview.html inside /home/mak/repro/homefinder/homesapp/templates/homesapp
+display name and are of property
+{{ property.property_name }}
+{{ property.area }}
+
+3. hit the browser http://127.0.0.1:8000/homesapp/
+NameError: name 'Property' is not defined
+so import property in the views.py
+from .models import Location,Property
+
+4. Now we need to get the urls on click on Miami >> Orchid >> Details of Orchid
+Edit Urls.py
+#/homesapp/1/2
+^([0-9]+) >> 1
+(?P<pk>[0-9]+) >> 2
+url(r'^([0-9]+)/(?P<pk>[0-9]+)$', views.PropertyDetail.as_view(),name='property'),
+
+5. Now click on orchid which is not clickable so we need to add the property for this
+add a href in the locationview.html
+<a href ='/homesapp/{{location.id}}/{{place.id}}'>{{ place.property_name }}</a></br>
+
+6. Hit the browser
+http://127.0.0.1:8000/homesapp/1/1
+Later we will add more property for orchid

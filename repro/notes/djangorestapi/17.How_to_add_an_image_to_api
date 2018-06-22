@@ -1,0 +1,24 @@
+install pillow for adding image to api
+(env) mak@mak-Aspire-A515-51G:~/demo/rest$ pip install pillow
+add image field in the models.py
+image = models.ImageField(upload_to='Image/', default='Images/None/No-img.jpg')
+
+(env) mak@mak-Aspire-A515-51G:~/demo/rest$ python manage.py makemigrations
+(env) mak@mak-Aspire-A515-51G:~/demo/rest$ python manage.py migrate
+
+edit serializers.py
+image = serializers.ImageField(max_length=None, use_url=True)
+
+Add media folder inside the rest folder and mention it in settings.py
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'
+
+URLs.py
+from django.conf import settings
+from django.conf.urls.static import static
+
++ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+http://127.0.0.1:8000/task/
+post a task with image now image is avialable in the api
+http://127.0.0.1:8000/media/Image/download.jpeg

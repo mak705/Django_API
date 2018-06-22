@@ -1,0 +1,28 @@
+On click on Newyork list out all properties
+Creating template for location example Newyork
+
+1.add class inside views.py(/home/mak/repro/homefinder/homesapp)
+
+class LocationView(generic.DetailView):
+	model = Location
+	template_name = 'homesapp/locationview.html'
+
+2.create locationview.html(/home/mak/repro/homefinder/homesapp/templates/homesapp)
+location.property_set.all  will give all property for particular location
+place.property_name  > print the property name
+
+{% for place in location.property_set.all %}
+{{ place.property_name }}
+{% endfor %}
+
+3. URl pattern(/home/mak/repro/homefinder/homesapp) associate view with that(views.LocationView.as_view())
+#/homesapp/1 1 is the primary key
+url(r'^(?P<pk>[0-9]/$)', views.LocationView.as_view(),name='property'),
+
+4. on click on miami the url has to homesapp/1 where 1 is pk
+for that we need to add "/homesapp/{{location.id}}" to a href of index.html
+{# object_list have all the information about the location #}
+{% for location in object_list %}
+{#<a href ='#'>{{location.location_name}}</a></br> #}
+<a href ='/homesapp/{{location.id}}'>{{location.location_name}}</a></br>
+{% endfor %}

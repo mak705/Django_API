@@ -1,0 +1,55 @@
+1. Add dummy data to tables so we need to create super user
+>> which model we are going to use
+
+
+Models >> Data(web pages) 
+
+Data(back end) >> Views(this page has to be in this fashion)
+
+Views >> Templates
+
+Views + Template >>> Web Page
+
+Urls.py >> user interacts with application how urls appear
+
+creating super user
+1. if migration didnt happen
+python manage.py migrate
+
+python manage.py createsuperuser
+Username (leave blank to use 'mak'): mak
+Email address: mak@mak.com
+Password: 
+Password (again): 
+
+ 
+
+python manage.py runserver
+go to browser and http://127.0.0.1:8000/admin/login/?next=/admin/
+
+login as  admin(mak and ThankS@2018$) 
+The model we have created is not availble in the panel because we didnt register in the admin.py file
+/home/mak/repro/homefinder/homesapp/admin.py
+
+from .models import Property, Location
+# Register your models here.
+
+admin.site.register(Property)
+admin.site.register(Location)
+
+NOw its availble in the Property and Location admin panel
+
+Save one location jname Miami 
+now we can see location object in the panel For miami to  appear (string representation) go to models.py(/home/mak/repro/homefinder/homesapp) refer str function
+
+def __str__(self):
+		return self.location_name
+
+def __str__(self):
+		return self.property_name
+
+Refresh the page now
+
+Add one (orchid, 12000)property(http://127.0.0.1:8000/admin/homesapp/) now with miami as location
+
+

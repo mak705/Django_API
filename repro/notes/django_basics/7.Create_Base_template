@@ -1,0 +1,123 @@
+1. Create the naviagation bar for the website.
+so we need to create some base template
+Create a base.html inside homesapp templates/homesapp/base.html
+
+bootstrap for navigation bar
+https://getbootstrap.com/docs/3.3/getting-started/
+copy first link paste in base.html
+nav bar will be in black color >>   <nav class="navbar navbar-inverse">
+Make base.html as indexview(index.html)> Add below tags. After navigation bar ends
+next page is going to extend
+{% block body %}
+{% endblock %}
+
+base.html>>
+<html>
+<head>
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+  <nav class="navbar navbar-inverse">
+  </nav>
+  {% block body %}
+  {% endblock %}
+
+</body>
+</html>
+
+
+2. GO to index.html
+{% extends 'homesapp/base.html'%}
+{% block body %}
+{# object_list have all the information about the location #}
+{% for location in object_list %}
+{#<a href ='#'>{{location.location_name}}</a></br> #}
+<a href ='/homesapp/{{location.id}}'>{{location.location_name}}</a></br>
+{% endfor %}
+{% endblock %}
+
+Now navigationbar will be added to index.html4
+http://127.0.0.1:8000/homesapp/ > nav bar will be displayed
+
+8.Add header tag for nav bar(http://127.0.0.1:8000/homesapp/)
+
+<div class>='container-fluid'>
+  <div class='navbar-header'>
+    <a class="navbar-brand" href='#'>Property Arena</a>
+  </div>
+</div>
+
+9. Add other link to nav bar
+<ul class="nav navbar-nav">
+  <li class="active"><a href='#'>Home</a></li>
+  <li><a href='#'>Page 1</a></li>
+  <li><a href='#'>Page 2</a></li>
+http://127.0.0.1:8000/homesapp/
+
+10. Add logout at right
+<ul class="nav navbar-nav navbar-right">
+  <li><a href='#'>sign up</a></li>
+  <li><a href='#'>login</a></li>
+
+</ul>
+
+11. Add navigation bar to each  one fo the pages(loction and property) add beow the code
+in locationview.html and propertyview.html
+{% extends 'homesapp/base.html'%}
+
+{% block body %}
+{% endblock %}
+
+propertyview >>
+{% extends 'homesapp/base.html'%}
+
+{% block body %}
+
+    {{ property.property_name }}</br>
+    {{ property.area }}
+{% endblock %}
+
+
+locationview>>
+{% extends 'homesapp/base.html'%}
+
+{% block body %}
+{% for place in location.property_set.all %}
+    {#{{ place.property_name }}#}
+  {#To make orchidvilla cliickable#}
+  <a href ='/homesapp/{{location.id}}/{{place.id}}'>{{ place.property_name }}</a></br>
+{% endfor %}
+{% endblock %}
+
+
+base.html >>
+<html>
+<head>
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class>='container-fluid'>
+      <div class='navbar-header'>
+        <a class="navbar-brand" href='#'>Property Arena</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href='#'>Home</a></li>
+        <li><a href='#'>Page 1</a></li>
+        <li><a href='#'>Page 2</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href='#'>sign up</a></li>
+        <li><a href='#'>login</a></li>
+
+      </ul>
+
+    </div>
+  </nav>
+  {% block body %}
+  {% endblock %}
+</body>
+</html>

@@ -1,0 +1,71 @@
+Open serializers.py folder enter which all things u want to show
+from .models import Task
+from rest_framework import serializers
+
+class TaskSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        fileds = ('id', 'task_name', 'task_desc')
+
+in Latest Django >>
+from .models import Task
+from rest_framework import serializers
+
+class TaskSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        #fileds = ('id', 'task_name', 'task_desc')
+        #exclude = ('id', 'task_name', 'task_desc')
+        depth = 3
+        fields = '__all__'
+----------------
+
+
+Open the views.py
+from django.shortcuts import render
+from rest_framework import viewsets
+from .serializers import TaskSerializers
+from .models import Task
+
+
+# Create your views here.
+
+class TaskViewSet(viewsets.ModelViewSet):
+#queryset extract from the task object order by date
+    queryset = Task.objects.all().order_by('-date_created')
+    serializer_class = TaskSerializers
+
+2. Configure urls.py
+from django.conf.urls import include,url
+from rest_framework import routers
+from restapp.views import TaskViewSet
+
+router = routers.DefaultRouter()
+router.register(r'task', TaskViewSet)
+
+urlpatterns = [
+    url(r'^admin/', admin.site.urls),
+    url(r'^', include(router.urls)),
+
+]
+##    url(r'^', include(router.urls)) >> substituite router.register(r'task', TaskViewSet)
+
+3. GO to settings.py and install the apps
+'restapp',
+  'rest_framework',
+
+4. GO to admin.py and register
+from django.contrib import admin
+from .models import Task
+# Register your models here.
+admin.site.register(Task)
+
+Apply migrations
+(env) mak@mak-Aspire-A515-51G:~/demo/rest$ python manage.py makemigrations
+(env) mak@mak-Aspire-A515-51G:~/demo/rest$ python manage.py migrate
+rn the server
+NOw http://127.0.0.1:8000/
+
+Add task name and task desc
+
+6 .How to get an end point for an api

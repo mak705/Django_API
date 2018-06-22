@@ -1,0 +1,121 @@
+{% extends 'homesapp/base.html'%}
+{% block body %}
+
+<html>
+<head>
+  <style>
+      /* Set the size of the div element that contains the map */
+      #map {
+        height: 400px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+       }
+    </style>
+</head>
+<body>
+<div class="row">
+    <div class="col-md-1">
+    </div>
+
+    <div class="col-md-3">
+      <div class="thumbnail">
+        <img src="{{property.image_url}}" height="420" width="420">
+        <div class="caption">
+          <p> {{property.property_name}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+     <div class="container">
+      <div class="panel-group">
+        <div class="panel panel-primary">
+          <div class="panel-heading">Property Details</div>
+            <div class="panel-body">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td>
+                      <label>Area  in sqft </label>
+                    </td>
+                    <td>
+                      {{property.area}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label>Price</label>
+                    </td>
+                    <td>
+                      {{property.price}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label>Age </label>
+                    </td>
+                    <td>
+                      {{property.age}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label>Direction</label>
+                    </td>
+                    <td>
+                      {{property.direction}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label>Floors </label>
+                    </td>
+                    <td>
+                      {{property.floor}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label>Address</label>
+                    </td>
+                    <td>
+                      {{property.postadd}}
+                    </td>
+                  </tr>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Map begins here-->
+<div class="col-md-8">
+  <div class="thumbnail">
+    <h3>Location</h3>
+    <div id="map"></div>
+    <script>
+        // Initialize and add the map
+        function initMap() {
+        // The location of Uluru
+        var uluru = {lat: {{property.lat_field}}, lng: {{property.long_field}}};
+        // The map, centered at Uluru
+        var map = new google.maps.Map(
+        document.getElementById('map'), {zoom: 4, center: uluru});
+        // The marker, positioned at Uluru
+        var marker = new google.maps.Marker({position: uluru, map: map});
+        }
+    </script>
+    <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCV_kfWyicNUaq8L2UZmlEyIVjsAqVQaG0&callback=initMap">
+</script>
+  </div>
+</div>
+
+
+</body>
+</html>
+
+
+{#{{ property.property_name }}</br>#}
+{#{{ property.area }} #}
+{% endblock %}

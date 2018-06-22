@@ -1,0 +1,37 @@
+Let us add one attribuite completed
+this is to check wherther action is completed or not
+http://127.0.0.1:8000/task/completed >> will get the completed list
+
+For that   in models.py add  completed = models.BooleanField(default=False)
+(env) mak@mak-Aspire-A515-51G:~/demo/rest$ python manage.py makemigrations
+(env) mak@mak-Aspire-A515-51G:~/demo/rest$ python manage.py migrate
+
+We need to configure views.py for that bcoz on hit http://127.0.0.1:8000/task/completed  we
+need to show the completed tasks
+
+We need to install django filters
+(venv) mak@mak-Aspire-A515-51G:~/stock$ pip install django-filter
+
+Configure views.py and urls.py
+class DueTaskViewSet(viewsets.ModelViewSet):
+    queryset = Task.objects.order_by('-date_created').filter(completed = False)
+    serializer_class = TaskSerializers
+
+class CompletedViewSet(viewsets.ModelViewSet):
+    #queryset = Task.objects.all().order_by('-date_created')
+    queryset = Task.objects.all().order_by('-date_created').filter(completed = True)
+    serializer_class = TaskSerializers
+
+
+URLs.py need to configure
+from restapp import views
+#router = routers.DefaultRouter()
+router = routers.SimpleRouter()
+router.register(r'task', TaskViewSet)
+router.register(r'due_task', views.DueTaskViewSet)
+router.register(r'completed_task', views.CompletedViewSet)
+
+Hit the url and just post it
+http://127.0.0.1:8000/task/
+http://127.0.0.1:8000/due_task/
+http://127.0.0.1:8000/completed_task/

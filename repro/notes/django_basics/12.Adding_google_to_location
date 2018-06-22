@@ -1,0 +1,15 @@
+1. Open model.py
+add attribute in the property Class
+lat_field = models.CharField(max_length = 200)
+long_field = models.CharField(max_length = 200)
+2 Changed in model so make migrations
+(repro) mak@mak-Aspire-A515-51G:~/repro/homefinder$ python manage.py makemigrations homesapp
+type 1 and 'NA'
+
+(repro) mak@mak-Aspire-A515-51G:~/repro/homefinder$ python manage.py sqlmigrate homesapp 0003
+
+login to admin and check the property of any one lat_field and long_filed will be avialble there
+enter for one property say Maks house
+
+NOw go to propertyview.html edit the line
+var uluru = {lat: {{property.lat_field}}, lng: {{property.long_field}}};

@@ -1,0 +1,22 @@
+1. Create virtualenvironment called repro
+virtualenv repro
+source repro/bin/activate
+cd repro/
+
+2. Instal django
+pip install django==1.11.3
+
+3. Create project homefinder
+(repro) mak@mak-Aspire-A515-51G:~/repro$ django-admin startproject  homefinder
+
+4. Create an application
+cd homefinder/
+(repro) mak@mak-Aspire-A515-51G:~/repro$ django-admin startapp homesapp
+
+
+5. Run the server
+(repro) mak@mak-Aspire-A515-51G:~/repro/homefinder$ python manage.py runserver
+
+
+
+

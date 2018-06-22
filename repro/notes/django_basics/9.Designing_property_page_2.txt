@@ -1,0 +1,124 @@
+1. NOw check the fun house to display the dummy details we have entered has to display
+for that we need to arrage propertyview.html
+{% extends 'homesapp/base.html'%}
+{% block body %}
+
+<html>
+<head>
+</head>
+<body>
+  <div class="row">
+    <div class="col-md-1">
+    </div>
+
+    <div class="col-md-3">
+      <div class="thumbnail">
+        <img src="{{property.image_url}}" height="420" width="420">
+        <div class="caption">
+          <p> {{property.property_name}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+
+{#{{ property.property_name }}</br>#}
+{#{{ property.area }} #}
+{% endblock %}
+
+Check the fun house http://127.0.0.1:8000/homesapp/2/2
+{% extends 'homesapp/base.html'%}
+{% block body %}
+
+<html>
+<head>
+</head>
+<body>
+<div class="row">
+    <div class="col-md-1">
+    </div>
+
+    <div class="col-md-3">
+      <div class="thumbnail">
+        <img src="{{property.image_url}}" height="420" width="420">
+        <div class="caption">
+          <p> {{property.property_name}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+     <div class="container">
+      <div class="panel-group">
+        <div class="panel panel-primary">
+          <div class="panel-heading">Property Details</div>
+            <div class="panel-body">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td>
+                      <label>Area  in sqft </label>
+                    </td>
+                    <td>
+                      {{property.area}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label>Price</label>
+                    </td>
+                    <td>
+                      {{property.price}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label>Age </label>
+                    </td>
+                    <td>
+                      {{property.age}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label>Direction</label>
+                    </td>
+                    <td>
+                      {{property.direction}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label>Floors </label>
+                    </td>
+                    <td>
+                      {{property.floor}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label>Address</label>
+                    </td>
+                    <td>
+                      {{property.postadd}}
+                    </td>
+                  </tr>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+{#{{ property.property_name }}</br>#}
+{#{{ property.area }} #}
+{% endblock %}
+{#{{ property.property_name }}</br>#}
+{#{{ property.area }} #}
+{% endblock %}{% endblock %}
+
