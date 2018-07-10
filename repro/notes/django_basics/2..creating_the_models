@@ -1,5 +1,5 @@
 1.Go to models.py
-/home/mak/repro/homefinder/homesapp
+/home/mak/repro/homefinder/homesapp/models.py
 
 class Location(models.Model):
 	location_name = models.CharField(max_length = 200)
